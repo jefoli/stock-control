@@ -11,11 +11,13 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'dashboard',
-    component: DashboardHomeComponent
+    //lazy loading:
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(
+      (m) => m.DashboardModule),
   }
 ];
 
