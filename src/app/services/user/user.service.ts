@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { AuthRequest } from 'src/app/models/interfaces/user/auth/AuthRequest';
@@ -14,7 +15,7 @@ export class UserService {
 
   private API_URL = environment.API_URL;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookie: CookieService) { }
 
 
   //servico para criar usuario - usa uma interface que criamos SignupUserRequest de entrada
@@ -35,6 +36,17 @@ export class UserService {
       `${this.API_URL}/auth`,
       requestDatas
     );
+  }
+
+  //validar se o usuário está logado
+  isLoggedIn(): boolean {
+
+    //verificar se  usuário possui um token ou cookie com o nome que definimos
+
+    //acessar cookie já existente:
+    const JWT_TOKEN = this.cookie.get('USER_INFO');
+
+    return JWT_TOKEN ? true : false;
   }
 
 }
