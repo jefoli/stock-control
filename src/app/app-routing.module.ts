@@ -20,6 +20,15 @@ const routes: Routes = [
     loadChildren: () => import('./modules/dashboard/dashboard.module').then(
       (m) => m.DashboardModule),
     canActivate: [AuthGuard] //guardiao da rota
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./modules/products/products.module').then(
+      (m) => m.ProductsModule
+    ),
+    canActivate: [
+      AuthGuard
+    ],
   }
 ];
 
